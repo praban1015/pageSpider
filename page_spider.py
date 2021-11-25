@@ -17,11 +17,20 @@
 
 import os
 import argparse
+from uttilities import url_uttilities
 
 
-def main(database: str, url_list_file: str):
+def main(database: str, url_list_file: str) :
+    big_word_list = []
     print("We are going work with" + database)
-    print("We are going scan" + url_list_file)
+    print("We are going scan " + url_list_file)
+    urls = url_uttilities.load_urls_from_file(url_list_file)
+    for url in urls:
+        print("Reading " + url)
+        page_content = url_uttilities.load_page(url=url)
+        # print ( page_content)
+        words = url_uttilities.scrape_page(page_contents=page_content)
+        big_word_list.extend(words)
 
 
 if __name__ == '__main__':
@@ -30,5 +39,5 @@ if __name__ == '__main__':
     parser.add_argument("-i", "--input", help="File containing urls to read")
     args = parser.parse_args()
     database_file = args.database
-    input_file = args.inpu
+    input_file = args.input
     main(database=database_file, url_list_file=input_file)

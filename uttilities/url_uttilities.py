@@ -9,7 +9,7 @@ def load_urls_from_file(file_path: str):
     # test
     try:
         with open(file_path) as f:
-            content = f.readline()
+            content = f.readlines()
             return content
     except FileNotFoundError:
         print("The file " + file_path + "not to be found.")
@@ -22,7 +22,7 @@ def load_page(url: str):
 
 
 def scrape_page(page_contents: str):
-    chicken_noodle = BeautifulSoup(page_contents, "html5lib")
+    chicken_noodle = BeautifulSoup("<html><p>This is <b>invalid HTML</p></html>", "html5lib")
 
     for script in chicken_noodle(["script", "style"]):
         script.extract()
